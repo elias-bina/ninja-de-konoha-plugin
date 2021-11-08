@@ -1,0 +1,6 @@
+main: "org.ensimag.konohaninja.PluginMain"
+version: "1.0"
+name: "konoha-no-shinobi"
+api-version: "1.17"
+
+
