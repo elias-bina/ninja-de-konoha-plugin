@@ -10,7 +10,7 @@ public class PluginMain extends JavaPlugin {
         // this.getCommand("uwu").setExecutor(new CommandBasic());
         // this.getCommand("sortchest").setExecutor(SortingCommand.getInstance());
         // this.getCommand("ninjamode").setExecutor(NinjaModeCommand.getInstance());
-        // getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
+        getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
         // getServer().getPluginManager().registerEvents(ChestSortingListener.getInstance(), this);
         // getServer().getPluginManager().registerEvents(ItemReplacingListener.getInstance(), this);
         
