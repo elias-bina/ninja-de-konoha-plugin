@@ -1,0 +1,1 @@
+# ninja-de-konoha-plugin
