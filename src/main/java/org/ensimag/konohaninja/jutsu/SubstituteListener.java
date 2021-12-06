@@ -10,12 +10,13 @@ import io.papermc.paper.event.player.PlayerArmSwingEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
 public class SubstituteListener implements Listener{
 
-    private static final double TELEPORTATION_LENGTH = 10.0;
+    private static final double TELEPORTATION_LENGTH = 12.0;
 
     private static SubstituteListener instance;
 
@@ -47,18 +48,17 @@ public class SubstituteListener implements Listener{
             player.getInventory().getItemInMainHand();
             player.getInventory().getItemInOffHand();
 
+            // TODO : Add suffocating protection
+
             Location loc = player.getLocation();
 
             Vector dir = loc.getDirection();
             Vector diff = dir.multiply(-TELEPORTATION_LENGTH);
 
-            Bukkit.getLogger().info(dir.toString() + " SPEED " + player.getFlySpeed());
+            loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 5);
 
-            loc.add(diff);
-            
+            loc.add(diff);            
             player.teleport(loc);
-            //player.setVelocity(dir.multiply(TELEPORTATION_LENGTH));
-
 
             
             
