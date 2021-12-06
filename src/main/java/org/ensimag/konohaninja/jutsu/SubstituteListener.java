@@ -23,6 +23,8 @@ public class SubstituteListener implements Listener{
 
     private static final double TELEPORTATION_LENGTH = 12.0;
 
+    private long lastUsed = 0;
+
     private static SubstituteListener instance;
 
     private SubstituteListener() {
@@ -41,13 +43,18 @@ public class SubstituteListener implements Listener{
         EquipmentSlot hand = event.getHand();
         ItemStack mainItem = player.getInventory().getItemInMainHand();
         ItemStack offItem = player.getInventory().getItemInOffHand();
-        if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK){
+
+        // TODO : Better workaround for multi-tick activation
+
+        if(lastUsed != player.getWorld().getGameTime() && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)){
             if((hand == EquipmentSlot.HAND && mainItem != null && (mainItem.getType().toString().contains("LOG") ||
                                                                 mainItem.getType().toString().contains("WARPED_STEM")||
                                                                 mainItem.getType().toString().contains("CRIMSON_STEM"))) ||
             (hand == EquipmentSlot.OFF_HAND && offItem != null && (offItem.getType().toString().contains("LOG") ||
                                                                     offItem.getType().toString().contains("WARPED_STEM")||
                                                                     offItem.getType().toString().contains("CRIMSON_STEM"))) ){
+
+                lastUsed = player.getWorld().getGameTime();
                 
                 player.getInventory().getHeldItemSlot();
                 player.getInventory().getItemInMainHand();
@@ -69,8 +76,11 @@ public class SubstituteListener implements Listener{
 
                 
                 
+                Bukkit.getLogger().info(loc.getWorld().getGameTime() + "");
 
-                Bukkit.getLogger().info( player.getInventory().getItemInMainHand().getType().toString());
+                //Bukkit.getLogger().info( player.getInventory().getItemInMainHand().getType().toString());
+            
+                event.setCancelled(true);
             }
         }
     }
