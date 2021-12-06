@@ -4,13 +4,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
 
 import io.papermc.paper.event.player.PlayerArmSwingEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -56,6 +59,8 @@ public class SubstituteListener implements Listener{
             Vector diff = dir.multiply(-TELEPORTATION_LENGTH);
 
             loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 5);
+            Material entity_material = hand == EquipmentSlot.HAND ? player.getInventory().getItemInMainHand().getType() : player.getInventory().getItemInOffHand().getType();
+            loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
 
             loc.add(diff);            
             player.teleport(loc);
