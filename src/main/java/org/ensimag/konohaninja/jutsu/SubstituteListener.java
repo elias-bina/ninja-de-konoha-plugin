@@ -50,14 +50,14 @@ public class SubstituteListener implements Listener{
             Location loc = player.getLocation();
 
             Vector dir = loc.getDirection();
-            //Vector diff = dir.multiply(TELEPORTATION_LENGTH);
+            Vector diff = dir.multiply(-TELEPORTATION_LENGTH);
 
             Bukkit.getLogger().info(dir.toString() + " SPEED " + player.getFlySpeed());
 
-            //loc.add(diff);
+            loc.add(diff);
             
-            //player.teleport(loc);
-            player.setVelocity(dir.multiply(TELEPORTATION_LENGTH));
+            player.teleport(loc);
+            //player.setVelocity(dir.multiply(TELEPORTATION_LENGTH));
 
 
             
