@@ -10,6 +10,7 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
 
 import io.papermc.paper.event.player.PlayerArmSwingEvent;
+import net.md_5.bungee.api.chat.hover.content.Item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -47,40 +48,48 @@ public class SubstituteListener implements Listener{
         // TODO : Better workaround for multi-tick activation
 
         if(lastUsed != player.getWorld().getGameTime() && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)){
-            if((hand == EquipmentSlot.HAND && mainItem != null && (mainItem.getType().toString().contains("LOG") ||
-                                                                mainItem.getType().toString().contains("WARPED_STEM")||
-                                                                mainItem.getType().toString().contains("CRIMSON_STEM"))) ||
-            (hand == EquipmentSlot.OFF_HAND && offItem != null && (offItem.getType().toString().contains("LOG") ||
-                                                                    offItem.getType().toString().contains("WARPED_STEM")||
-                                                                    offItem.getType().toString().contains("CRIMSON_STEM"))) ){
+            if((hand == EquipmentSlot.HAND && mainItem != null) ||
+               (hand == EquipmentSlot.OFF_HAND && offItem != null)){
 
-                lastUsed = player.getWorld().getGameTime();
-                
-                player.getInventory().getHeldItemSlot();
-                player.getInventory().getItemInMainHand();
-                player.getInventory().getItemInOffHand();
+                ItemStack usedItem;
+                if(hand == EquipmentSlot.HAND){
+                    usedItem = mainItem;
+                } else{
+                    usedItem = offItem;
+                }
 
-                // TODO : Add suffocating protection
 
-                Location loc = player.getLocation();
+                if((usedItem.getType().toString().contains("LOG") ||
+                    usedItem.getType().toString().contains("WARPED_STEM")||
+                    usedItem.getType().toString().contains("CRIMSON_STEM"))
+                 && usedItem.getAmount() >= 2){
+                    lastUsed = player.getWorld().getGameTime();
+                    
+                    player.getInventory().getHeldItemSlot();
+                    player.getInventory().getItemInMainHand();
+                    player.getInventory().getItemInOffHand();
 
-                Vector dir = loc.getDirection();
-                Vector diff = dir.multiply(-TELEPORTATION_LENGTH);
+                    // TODO : Add suffocating protection
 
-                loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 5);
-                Material entity_material = hand == EquipmentSlot.HAND ? player.getInventory().getItemInMainHand().getType() : player.getInventory().getItemInOffHand().getType();
-                loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
+                    Location loc = player.getLocation();
 
-                loc.add(diff);            
-                player.teleport(loc);
+                    Vector dir = loc.getDirection();
+                    Vector diff = dir.multiply(-TELEPORTATION_LENGTH);
 
-                
-                
-                Bukkit.getLogger().info(loc.getWorld().getGameTime() + "");
+                    loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 5);
+                    Material entity_material = hand == EquipmentSlot.HAND ? player.getInventory().getItemInMainHand().getType() : player.getInventory().getItemInOffHand().getType();
+                    loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
+                    loc = loc.add(0.0, 1.0, 0.0);
+                    loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
 
-                //Bukkit.getLogger().info( player.getInventory().getItemInMainHand().getType().toString());
-            
-                event.setCancelled(true);
+                    loc.add(diff);            
+                    player.teleport(loc);
+
+                    usedItem.subtract(2);
+
+                    Bukkit.getLogger().info(loc.getWorld().getGameTime() + "");
+
+                }
             }
         }
     }
