@@ -25,13 +25,13 @@ public class ListenerBasic implements Listener{
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.joinMessage(Component.text("Bienvenue " + event.getPlayer().getName() + "-san"));
+        //event.joinMessage(Component.text("Bienvenue " + event.getPlayer().getName() + "-san"));
     }
 
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
-        event.quitMessage(Component.text("Retournes voir orochimaru " + event.getPlayer().getName() + "-san è-é"));
+        //event.quitMessage(Component.text("Retournes voir orochimaru " + event.getPlayer().getName() + "-san è-é"));
     }
 
 

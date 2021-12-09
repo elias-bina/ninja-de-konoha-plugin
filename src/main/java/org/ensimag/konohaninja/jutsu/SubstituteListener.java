@@ -85,8 +85,7 @@ public class SubstituteListener implements Listener{
                     loc.add(diff);            
                     player.teleport(loc);
 
-                    usedItem.subtract(2);
-
+                    usedItem.setAmount(usedItem.getAmount() - 2);
                     Bukkit.getLogger().info(loc.getWorld().getGameTime() + "");
 
                 }

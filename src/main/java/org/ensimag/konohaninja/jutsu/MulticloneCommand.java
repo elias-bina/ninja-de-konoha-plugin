@@ -41,7 +41,7 @@ public class MulticloneCommand implements CommandExecutor {
             return false;
         }
         if (sender instanceof Player player) {
-            player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.PLAYER);
+            player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.ZOMBIE);
         }
         return true;
     }
