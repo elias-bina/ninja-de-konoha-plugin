@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Skull;
 import org.bukkit.command.Command;
@@ -20,6 +21,11 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
+
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.Trait;
+import net.citizensnpcs.api.trait.trait.Equipment;
 
 public class MulticloneCommand implements CommandExecutor {
 
@@ -48,14 +54,18 @@ public class MulticloneCommand implements CommandExecutor {
             return false;
         }
         if (sender instanceof Player player) {
-            Zombie e = (Zombie)player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.ZOMBIE);
-            //e.setAI(false);
-            e.setTarget(null);
+
+            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "UwU");
+            
+            for(Trait t : e.getTraits()){
+                Bukkit.getLogger().info(t.toString());
+            }
+
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             headMeta.setOwningPlayer(player);
             head.setItemMeta(headMeta);
-            e.getEquipment().setHelmet(head , false);
+            //e.getEquipment().setHelmet(head , false);
         }
         return true;
     }
