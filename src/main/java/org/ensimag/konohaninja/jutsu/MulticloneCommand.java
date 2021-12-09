@@ -59,7 +59,7 @@ public class MulticloneCommand implements CommandExecutor {
             head.setItemMeta(headMeta);
             Equipment equipmentTrait = new Equipment()
             equipmentTrait.set(EquipmentSlot.HELMET, head);
-            e.addTrait(new Equipment());
+            e.addTrait(equipmentTrait);
             
             for(Trait t : e.getTraits()){
                 Bukkit.getLogger().info(t.toString());
