@@ -45,7 +45,7 @@ public class MulticloneCommand implements CommandExecutor {
             return false;
         }
         if (sender instanceof Player player) {
-            LivingEntity e = (LivingEntity)player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.VILLAGER);
+            LivingEntity e = (LivingEntity)player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.ZOMBIE);
             e.setAI(false);
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             e.getEquipment().setHelmet(head , false);
