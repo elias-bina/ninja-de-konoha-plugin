@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
 
 
@@ -46,6 +48,13 @@ public class MulticloneListener implements Listener{
             
 
             for(NPC npc : l){
+                MetadataStore d = npc.data();
+                if((long)d.get("DeathDate") < p.getWorld().getGameTime()){
+                    npc.despawn();                  
+                    l.remove(npc);
+                    CitizensAPI.getNPCRegistry().deregister(npc);
+                    continue;
+                }
                 displacement.rotateAroundY(-2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
                 look.rotateAroundY(-2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
                 Entity npcEntity = npc.getEntity();

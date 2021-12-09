@@ -18,11 +18,13 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
 
 public class MulticloneCommand implements CommandExecutor {
 
     private static final double MULTICLONE_RANGE = 15.0;
+    private static final int CLONE_LIFETIME = 30*20;
     public static final int CLONE_NUMBER = 9;
 
     private static MulticloneCommand instance;
@@ -92,6 +94,8 @@ public class MulticloneCommand implements CommandExecutor {
                 direction.multiply(-1);
 
                 NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
+                MetadataStore d = e.data();
+                d.set("DeathDate", clone_loc.getWorld().getGameTime() + CLONE_LIFETIME);
                 l.add(e);
                 e.spawn(clone_loc);
                 
