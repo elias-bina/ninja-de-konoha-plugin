@@ -89,7 +89,7 @@ public class MulticloneCommand implements CommandExecutor {
             //     Bukkit.getLogger().info(t.toString());
             // }
 
-            e.spawn(player.getLocation().add(2.0, 0.0, 0.0));
+            e.spawn(center);
             //e.getEquipment().setHelmet(head , false);
         }
         return true;
