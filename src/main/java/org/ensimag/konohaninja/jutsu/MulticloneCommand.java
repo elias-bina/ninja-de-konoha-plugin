@@ -40,7 +40,7 @@ public class MulticloneCommand implements CommandExecutor {
     }
 
     public void cacheNPC(String playerName){
-        if(clonesPerPlayer.get(playerName) == null){
+        if(cachedPlayerClone.get(playerName) == null){
             cachedPlayerClone.put(playerName, CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, playerName));
         }
     }

@@ -26,7 +26,6 @@ public class MulticloneListener implements Listener{
     @EventHandler
     public void onPlayerConnection(PlayerJoinEvent event){
         commandInstance.cacheNPC(event.getPlayer().getDisplayName());
-        Bukkit.getLogger().info(event.getPlayer().getDisplayName() + "added to cached NPCs");
     }
     
 }
