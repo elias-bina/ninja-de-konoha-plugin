@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class MulticloneCommand implements CommandExecutor {
@@ -41,7 +45,10 @@ public class MulticloneCommand implements CommandExecutor {
             return false;
         }
         if (sender instanceof Player player) {
-            player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.ZOMBIE);
+            LivingEntity e = (LivingEntity)player.getWorld().spawnEntity(player.getLocation().add(2.0, 0.0, 0.0), EntityType.VILLAGER);
+            e.setAI(false);
+            ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+            e.getEquipment().setHelmet(head , false);
         }
         return true;
     }
