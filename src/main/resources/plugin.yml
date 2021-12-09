@@ -3,8 +3,6 @@ version: "1.0"
 name: "konoha-no-shinobi"
 api-version: "1.17"
 
-depend: [Citizens] 
-
 commands:
    multiclone:
       description: Create multiple clones of the player
