@@ -23,7 +23,7 @@ import net.citizensnpcs.api.npc.NPC;
 public class MulticloneCommand implements CommandExecutor {
 
     private static final double MULTICLONE_RANGE = 15.0;
-    private static final int CLONE_NUMBER = 9;
+    public static final int CLONE_NUMBER = 9;
 
     private static MulticloneCommand instance;
 
@@ -53,6 +53,10 @@ public class MulticloneCommand implements CommandExecutor {
         if(clonesPerPlayer.get(playerName) == null){
             clonesPerPlayer.put(playerName, new LinkedList<>());
         }
+    }
+
+    public List<NPC> getPlayerCloneList(String playerName){
+        return clonesPerPlayer.get(playerName);
     }
 
     @Override
