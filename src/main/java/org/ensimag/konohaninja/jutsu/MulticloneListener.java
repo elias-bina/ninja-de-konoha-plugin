@@ -1,5 +1,6 @@
 package org.ensimag.konohaninja.jutsu;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,7 @@ public class MulticloneListener implements Listener{
     @EventHandler
     public void onPlayerConnection(PlayerJoinEvent event){
         commandInstance.cacheNPC(event.getPlayer().getDisplayName());
+        Bukkit.getLogger().info(event.getPlayer().getDisplayName() + "added to cached NPCs");
     }
     
 }
