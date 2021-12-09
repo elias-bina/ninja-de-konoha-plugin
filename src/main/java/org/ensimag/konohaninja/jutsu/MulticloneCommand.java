@@ -19,10 +19,12 @@ public class MulticloneCommand implements CommandExecutor {
 
     private static MulticloneCommand instance;
 
+    private final Map<String, NPC> cachedPlayerClone;
     private final Map<String, List<HumanEntity>> clonesPerPlayer;
 
     private MulticloneCommand() {
         this.clonesPerPlayer = new HashMap<>();
+        this.cachedPlayerClone = new HashMap<>();
     }
 
     public static MulticloneCommand getInstance() {
@@ -36,6 +38,12 @@ public class MulticloneCommand implements CommandExecutor {
         instance = null;
     }
 
+    public void cacheNPC(String playerName){
+        if(clonesPerPlayer.get(playerName) == null){
+            cachedPlayerClone.put(playerName, CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, playerName));
+        }
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length != 0){
@@ -43,7 +51,7 @@ public class MulticloneCommand implements CommandExecutor {
         }
         if (sender instanceof Player player) {
 
-            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getDisplayName());
+           NPC e = cachedPlayerClone.get(player.getDisplayName());
 
             // SkinTrait skinTrait = new SkinTrait();
             // e.addTrait(skinTrait);
