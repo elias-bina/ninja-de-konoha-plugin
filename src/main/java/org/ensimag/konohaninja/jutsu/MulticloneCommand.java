@@ -76,7 +76,7 @@ public class MulticloneCommand implements CommandExecutor {
             
             direction.multiply(MULTICLONE_RANGE);
 
-            center.getWorld().spawnFallingBlock(center, Bukkit.createBlockData(Material.ACACIA_PLANKS));
+            
 
             for(int i = 0; i < CLONE_NUMBER;i++){
                 direction.rotateAroundY(2*Math.PI / (CLONE_NUMBER + 1));
@@ -90,6 +90,8 @@ public class MulticloneCommand implements CommandExecutor {
                 NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
                 l.add(e);
                 e.spawn(clone_loc);
+
+                center.getWorld().spawnFallingBlock(center, Bukkit.createBlockData(Material.ACACIA_PLANKS));
             }
 
         }
