@@ -22,7 +22,7 @@ import net.citizensnpcs.api.npc.NPC;
 
 public class MulticloneCommand implements CommandExecutor {
 
-    private static final double MULTICLONE_RANGE = 10.0;
+    private static final double MULTICLONE_RANGE = 15.0;
     private static final int CLONE_NUMBER = 9;
 
     private static MulticloneCommand instance;
@@ -60,7 +60,7 @@ public class MulticloneCommand implements CommandExecutor {
         if(args.length != 0){
             return false;
         }
-        if (sender instanceof Player player) {
+        if (sender instanceof Player player && clonesPerPlayer.get(player.getDisplayName()).isEmpty()) {
 
             List<NPC> l = clonesPerPlayer.get(player.getDisplayName());
 
@@ -90,8 +90,6 @@ public class MulticloneCommand implements CommandExecutor {
                 NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
                 l.add(e);
                 e.spawn(clone_loc);
-
-                
                 
                 direction.multiply(-1);
                 center.add(direction);
