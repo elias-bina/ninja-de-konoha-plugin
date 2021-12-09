@@ -53,13 +53,14 @@ public class MulticloneCommand implements CommandExecutor {
 
             NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "UwU");
 
+            Equipment equipmentTrait = new Equipment();
+            e.addTrait(equipmentTrait);
+            
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             headMeta.setOwningPlayer(player);
             head.setItemMeta(headMeta);
-            Equipment equipmentTrait = new Equipment();
             equipmentTrait.set(EquipmentSlot.HELMET, head);
-            e.addTrait(equipmentTrait);
             
             for(Trait t : e.getTraits()){
                 Bukkit.getLogger().info(t.toString());
