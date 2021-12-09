@@ -57,8 +57,8 @@ public class MulticloneListener implements Listener{
                     CitizensAPI.getNPCRegistry().deregister(npc);
                     continue;
                 }
-                displacement.rotateAroundY(-2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
-                look.rotateAroundY(-2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
+                displacement.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
+                look.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
                 Entity npcEntity = npc.getEntity();
                 npcEntity.teleport(npcEntity.getLocation().setDirection(look));
                 npcEntity.setVelocity(displacement);
