@@ -57,7 +57,7 @@ public class MulticloneCommand implements CommandExecutor {
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             headMeta.setOwningPlayer(player);
             head.setItemMeta(headMeta);
-            Equipment equipmentTrait = new Equipment()
+            Equipment equipmentTrait = new Equipment();
             equipmentTrait.set(EquipmentSlot.HELMET, head);
             e.addTrait(equipmentTrait);
             
