@@ -52,9 +52,10 @@ public class MulticloneListener implements Listener{
                 if((long)d.get("DeathDate") < p.getWorld().getGameTime()){
                     if(npc.isSpawned()){
                         npc.despawn();  
+                    }else {   
+                        l.remove(npc);
+                        CitizensAPI.getNPCRegistry().deregister(npc);
                     }                
-                    l.remove(npc);
-                    CitizensAPI.getNPCRegistry().deregister(npc);
                     continue;
                 }
                 displacement.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
