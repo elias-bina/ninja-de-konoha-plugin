@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -74,6 +75,8 @@ public class MulticloneCommand implements CommandExecutor {
             center.setDirection(direction);
             
             direction.multiply(MULTICLONE_RANGE);
+
+            center.getWorld().spawnFallingBlock(center, Bukkit.createBlockData(Material.ACACIA_PLANKS));
 
             for(int i = 0; i < CLONE_NUMBER;i++){
                 direction.rotateAroundY(2*Math.PI / (CLONE_NUMBER + 1));
