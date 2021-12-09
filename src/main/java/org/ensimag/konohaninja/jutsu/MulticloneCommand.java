@@ -84,13 +84,18 @@ public class MulticloneCommand implements CommandExecutor {
                 Location clone_loc = center.add(direction);
                 
                 direction.multiply(-1);
-                center.add(direction);
                 clone_loc.setDirection(direction);
                 direction.multiply(-1);
 
                 NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
                 l.add(e);
                 e.spawn(clone_loc);
+
+                
+                
+                direction.multiply(-1);
+                center.add(direction);
+                direction.multiply(-1);
 
                 center.getWorld().spawnFallingBlock(center, Bukkit.createBlockData(Material.ACACIA_PLANKS));
             }
