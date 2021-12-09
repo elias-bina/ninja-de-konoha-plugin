@@ -11,6 +11,7 @@ public class PluginMain extends JavaPlugin {
 
         this.getCommand("multiclone").setExecutor(MulticloneCommand.getInstance());
         this.getCommand("purgeNPC").setExecutor(NPCPurgeCommand.getInstance());
+        getServer().getPluginManager().registerEvents(MulticloneListener.getInstance(), this);
         getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
         getServer().getPluginManager().registerEvents(SubstituteListener.getInstance(), this);
         
