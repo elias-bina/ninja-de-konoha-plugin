@@ -52,7 +52,7 @@ public class MulticloneCommand implements CommandExecutor {
         }
         if (sender instanceof Player player) {
 
-           NPC e = cachedPlayerClone.get(player.getDisplayName());
+           NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
            Bukkit.getLogger().info(e.toString());
 
             // SkinTrait skinTrait = new SkinTrait();
