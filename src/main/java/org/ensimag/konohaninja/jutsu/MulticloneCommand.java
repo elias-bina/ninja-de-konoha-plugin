@@ -61,36 +61,34 @@ public class MulticloneCommand implements CommandExecutor {
         }
         if (sender instanceof Player player) {
 
-           NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
+            List<NPC> l = clonesPerPlayer.get(player.getDisplayName());
 
-           List<NPC> l = clonesPerPlayer.get(player.getDisplayName());
+            Vector direction = player.getLocation().getDirection();
+            direction.setY(0);
+            direction.normalize();
+            direction.multiply(MULTICLONE_RANGE);
 
-           Vector direction = player.getLocation().getDirection();
-           direction.setY(0);
-           direction.normalize();
-           direction.multiply(MULTICLONE_RANGE);
-
-           Location center = player.getLocation().add(direction);
-
-           for(int i = 0; i < CLONE_NUMBER;i++){
-
-           }
-
-           l.add(e);
-
-           Bukkit.getLogger().info(e.toString());
-
-            // SkinTrait skinTrait = new SkinTrait();
-            // e.addTrait(skinTrait);
-
-
+            Location center = player.getLocation().add(direction);
+            direction.multiply(-1);
+            direction.normalize();
+            center.setDirection(direction);
             
-            // for(Trait t : e.getTraits()){
-            //     Bukkit.getLogger().info(t.toString());
-            // }
+            direction.multiply(MULTICLONE_RANGE);
 
-            e.spawn(center);
-            //e.getEquipment().setHelmet(head , false);
+            for(int i = 0; i < CLONE_NUMBER;i++){
+                direction.rotateAroundY(2*Math.PI / (CLONE_NUMBER + 1));
+
+                Location clone_loc = center.add(direction);
+                
+                direction.multiply(-1);
+                clone_loc.setDirection(direction);
+                direction.multiply(-1);
+
+                NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
+                l.add(e);
+                e.spawn(clone_loc);
+            }
+
         }
         return true;
     }
