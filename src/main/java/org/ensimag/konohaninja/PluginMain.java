@@ -10,7 +10,7 @@ public class PluginMain extends JavaPlugin {
         getLogger().info("Konoha no Shinobi enabled");
 
         this.getCommand("multiclone").setExecutor(MulticloneCommand.getInstance());
-        this.getCommand("spawnNPC").setExecutor(NPCPurgeCommand.getInstance());
+        this.getCommand("purgeNPC").setExecutor(NPCPurgeCommand.getInstance());
         getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
         getServer().getPluginManager().registerEvents(SubstituteListener.getInstance(), this);
         
