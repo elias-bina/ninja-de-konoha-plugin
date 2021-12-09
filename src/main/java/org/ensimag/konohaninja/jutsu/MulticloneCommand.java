@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Skull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,7 +54,7 @@ public class MulticloneCommand implements CommandExecutor {
 
             Equipment equipmentTrait = new Equipment();
             e.addTrait(equipmentTrait);
-            
+
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             headMeta.setOwningPlayer(player);
@@ -65,6 +64,8 @@ public class MulticloneCommand implements CommandExecutor {
             for(Trait t : e.getTraits()){
                 Bukkit.getLogger().info(t.toString());
             }
+
+            e.spawn(player.getLocation().add(2.0, 0.0, 0.0));
             //e.getEquipment().setHelmet(head , false);
         }
         return true;

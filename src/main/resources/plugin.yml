@@ -9,3 +9,6 @@ commands:
    multiclone:
       description: Create multiple clones of the player
       usage: "Usage : /multiclone"
+   purgeNPC:
+      description: Remove every Citizen2 NPC (debug purposes only)
+      usage: "Usage : /purgeNPC"

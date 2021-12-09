@@ -2,18 +2,17 @@ package org.ensimag.konohaninja;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ensimag.konohaninja.jutsu.*;
+import org.ensimag.konohaninja.utils.*;
 
 public class PluginMain extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Konoha no Shinobi enabled");
 
-        // this.getCommand("uwu").setExecutor(new CommandBasic());
-        // this.getCommand("sortchest").setExecutor(SortingCommand.getInstance());
         this.getCommand("multiclone").setExecutor(MulticloneCommand.getInstance());
+        this.getCommand("spawnNPC").setExecutor(NPCPurgeCommand.getInstance());
         getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
         getServer().getPluginManager().registerEvents(SubstituteListener.getInstance(), this);
-        // getServer().getPluginManager().registerEvents(ItemReplacingListener.getInstance(), this);
         
     }
     @Override
