@@ -43,7 +43,7 @@ public class MulticloneCommand implements CommandExecutor {
         }
         if (sender instanceof Player player) {
 
-            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "&7.");
+            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getDisplayName());
 
             // SkinTrait skinTrait = new SkinTrait();
             // e.addTrait(skinTrait);
