@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,8 +14,6 @@ import org.jetbrains.annotations.NotNull;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.Trait;
-import net.citizensnpcs.trait.SkinTrait;
 
 public class MulticloneCommand implements CommandExecutor {
 
@@ -47,7 +43,7 @@ public class MulticloneCommand implements CommandExecutor {
         }
         if (sender instanceof Player player) {
 
-            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "_IHeliOSI_");
+            NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "&7.");
 
             // SkinTrait skinTrait = new SkinTrait();
             // e.addTrait(skinTrait);
