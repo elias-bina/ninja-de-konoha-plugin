@@ -12,12 +12,7 @@ import org.bukkit.block.Skull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +21,7 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
+import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
 
 public class MulticloneCommand implements CommandExecutor {
 
@@ -56,15 +52,18 @@ public class MulticloneCommand implements CommandExecutor {
         if (sender instanceof Player player) {
 
             NPC e = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "UwU");
-            
-            for(Trait t : e.getTraits()){
-                Bukkit.getLogger().info(t.toString());
-            }
 
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             headMeta.setOwningPlayer(player);
             head.setItemMeta(headMeta);
+            Equipment equipmentTrait = new Equipment()
+            equipmentTrait.set(EquipmentSlot.HELMET, head);
+            e.addTrait(new Equipment());
+            
+            for(Trait t : e.getTraits()){
+                Bukkit.getLogger().info(t.toString());
+            }
             //e.getEquipment().setHelmet(head , false);
         }
         return true;
