@@ -50,7 +50,9 @@ public class MulticloneListener implements Listener{
             for(NPC npc : l){
                 MetadataStore d = npc.data();
                 if((long)d.get("DeathDate") < p.getWorld().getGameTime()){
-                    npc.despawn();                  
+                    if(npc.isSpawned()){
+                        npc.despawn();  
+                    }                
                     l.remove(npc);
                     CitizensAPI.getNPCRegistry().deregister(npc);
                     continue;
