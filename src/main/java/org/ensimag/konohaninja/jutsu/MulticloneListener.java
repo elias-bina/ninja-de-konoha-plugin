@@ -41,7 +41,7 @@ public class MulticloneListener implements Listener{
         
         List<NPC> l = commandInstance.getPlayerCloneList(p.getDisplayName());
         if(!l.isEmpty()){
-            Vector displacement = event.getTo().subtract(event.getFrom()).toVector();
+            Vector displacement = event.getTo().clone().subtract(event.getFrom().clone()).toVector();
             Vector look = event.getFrom().getDirection();
             
 
