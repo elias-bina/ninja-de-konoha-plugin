@@ -1,7 +1,7 @@
 package org.ensimag.konohaninja;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.ensimag.konohaninja.jutsu.SubstituteListener;
+import org.ensimag.konohaninja.jutsu.*;
 
 public class PluginMain extends JavaPlugin {
     @Override
@@ -10,7 +10,7 @@ public class PluginMain extends JavaPlugin {
 
         // this.getCommand("uwu").setExecutor(new CommandBasic());
         // this.getCommand("sortchest").setExecutor(SortingCommand.getInstance());
-        // this.getCommand("ninjamode").setExecutor(NinjaModeCommand.getInstance());
+        this.getCommand("multiclone").setExecutor(MulticloneCommand.getInstance());
         getServer().getPluginManager().registerEvents(ListenerBasic.getInstance(), this);
         getServer().getPluginManager().registerEvents(SubstituteListener.getInstance(), this);
         // getServer().getPluginManager().registerEvents(ItemReplacingListener.getInstance(), this);
