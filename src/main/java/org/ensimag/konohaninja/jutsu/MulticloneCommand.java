@@ -84,6 +84,7 @@ public class MulticloneCommand implements CommandExecutor {
                 Location clone_loc = center.add(direction);
                 
                 direction.multiply(-1);
+                center.add(direction);
                 clone_loc.setDirection(direction);
                 direction.multiply(-1);
 
