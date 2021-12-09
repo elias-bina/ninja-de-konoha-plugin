@@ -34,7 +34,7 @@ public class NPCPurgeCommand implements CommandExecutor{
             return false;
         }
         NPCRegistry reg = CitizensAPI.getNPCRegistry();
-        reg.despawnNPCs(DespawnReason.REMOVAL);
+        //reg.despawnNPCs(DespawnReason.REMOVAL);
         reg.deregisterAll();
 
         return true;
