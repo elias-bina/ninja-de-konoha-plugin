@@ -89,7 +89,7 @@ public class MulticloneListener implements Listener{
         MetadataStore d = npc.data();
         if(npc.isSpawned()){
             Entity e = npc.getEntity();
-            e.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, e.getLocation(), 5);
+            e.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, e.getLocation().add(0.0, 1.0, 0.0), 2);
 
             d.set("DeathDate", npc.getEntity().getWorld().getGameTime() + CLONE_DISAPPEARING_TICKS);
             npc.despawn();  
