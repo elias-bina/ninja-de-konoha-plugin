@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -87,6 +88,9 @@ public class MulticloneListener implements Listener{
     private void killNPC(NPC npc, List<NPC> l){
         MetadataStore d = npc.data();
         if(npc.isSpawned()){
+            Entity e = npc.getEntity();
+            e.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, e.getLocation(), 5);
+
             d.set("DeathDate", npc.getEntity().getWorld().getGameTime() + CLONE_DISAPPEARING_TICKS);
             npc.despawn();  
         }else {
