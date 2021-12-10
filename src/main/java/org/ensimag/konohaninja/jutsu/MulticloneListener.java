@@ -13,13 +13,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
+import io.papermc.paper.event.player.PlayerArmSwingEvent;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.util.NMS;
+import net.citizensnpcs.util.PlayerAnimation;
 
 
 public class MulticloneListener implements Listener{
@@ -71,6 +76,21 @@ public class MulticloneListener implements Listener{
             }
         }
         // Avant :  event.getFrom() Après :  event.getTo() Les 2 c'est des loc
+    }
+
+    @EventHandler
+    public void onPlayerAnim(PlayerArmSwingEvent event){
+        Player p = event.getPlayer();
+        
+        List<NPC> l = commandInstance.getPlayerCloneList(p.getDisplayName());
+        if(!l.isEmpty()){
+            for(NPC npc : new LinkedList<>(l)){
+                if(npc.isSpawned()){
+                    Player npcEntity = (Player)npc.getEntity();
+                    NMS.playAnimation(PlayerAnimation.ARM_SWING, npcEntity, 1);
+                }
+            }
+        }
     }
 
     @EventHandler
