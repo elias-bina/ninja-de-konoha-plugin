@@ -78,6 +78,7 @@ public class MulticloneListener implements Listener{
         // Avant :  event.getFrom() Après :  event.getTo() Les 2 c'est des loc
     }
 
+    // TODO : Sneak + eat + bunch of things to copy
     @EventHandler
     public void onPlayerAnim(PlayerArmSwingEvent event){
         Player p = event.getPlayer();
