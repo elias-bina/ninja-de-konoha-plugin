@@ -1,5 +1,6 @@
 package org.ensimag.konohaninja.jutsu;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class MulticloneListener implements Listener{
             Vector look = event.getFrom().getDirection();
             
 
-            for(NPC npc : l){
+            for(NPC npc : new LinkedList<>(l)){
                 MetadataStore d = npc.data();
                 if((long)d.get("DeathDate") < p.getWorld().getGameTime()){
                     killNPC(npc, l);       
