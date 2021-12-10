@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -89,7 +91,8 @@ public class MulticloneListener implements Listener{
         MetadataStore d = npc.data();
         if(npc.isSpawned()){
             Entity e = npc.getEntity();
-            e.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, e.getLocation().add(0.0, 1.0, 0.0), 2);
+            e.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, e.getLocation().add(0.0, 1.0, 0.0), 5);
+            e.getWorld().playSound(e.getLocation(), Sound.ENTITY_CREEPER_DEATH, SoundCategory.PLAYERS, 1.0f, 0.0f);
 
             d.set("DeathDate", npc.getEntity().getWorld().getGameTime() + CLONE_DISAPPEARING_TICKS);
             npc.despawn();  
