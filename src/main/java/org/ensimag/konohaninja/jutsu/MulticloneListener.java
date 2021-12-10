@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
@@ -23,6 +24,8 @@ import io.papermc.paper.event.player.PlayerArmSwingEvent;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.trait.Equipment;
+import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
 import net.citizensnpcs.util.NMS;
 import net.citizensnpcs.util.PlayerAnimation;
 
@@ -78,17 +81,35 @@ public class MulticloneListener implements Listener{
         // Avant :  event.getFrom() Après :  event.getTo() Les 2 c'est des loc
     }
 
-    // TODO : Sneak + eat + bunch of things to copy
+    // TODO : Sneak + eat + bunch of things to copy (if nms works)
+    // @EventHandler
+    // public void onPlayerAnim(PlayerArmSwingEvent event){
+    //     Player p = event.getPlayer();
+        
+    //     List<NPC> l = commandInstance.getPlayerCloneList(p.getDisplayName());
+    //     if(!l.isEmpty()){
+    //         for(NPC npc : new LinkedList<>(l)){
+    //             if(npc.isSpawned()){
+    //                 Player npcEntity = (Player)npc.getEntity();
+    //                 NMS.playAnimation(PlayerAnimation.ARM_SWING, npcEntity, 1);
+    //             }
+    //         }
+    //     }
+    // }
+
     @EventHandler
-    public void onPlayerAnim(PlayerArmSwingEvent event){
+    public void onPlayerItemChange(PlayerItemHeldEvent event){
         Player p = event.getPlayer();
         
         List<NPC> l = commandInstance.getPlayerCloneList(p.getDisplayName());
         if(!l.isEmpty()){
             for(NPC npc : new LinkedList<>(l)){
                 if(npc.isSpawned()){
-                    Player npcEntity = (Player)npc.getEntity();
-                    NMS.playAnimation(PlayerAnimation.ARM_SWING, npcEntity, 1);
+                    Equipment e = npc.getTraitNullable(Equipment.class);
+                    if(e != null){
+                        e.set(EquipmentSlot.HAND, p.getEquipment().getItemInMainHand());
+                        e.set(EquipmentSlot.OFF_HAND, p.getEquipment().getItemInOffHand());
+                    }
                 }
             }
         }

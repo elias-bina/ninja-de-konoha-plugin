@@ -117,10 +117,15 @@ public class MulticloneCommand implements CommandExecutor {
                 ItemStack chestplate = player.getEquipment().getChestplate();
                 ItemStack leggings = player.getEquipment().getLeggings();
                 ItemStack boots = player.getEquipment().getBoots();
+                ItemStack mainHandItem = player.getEquipment().getItemInMainHand();
+                ItemStack offHandItem = player.getEquipment().getItemInOffHand();
                 equipmentTrait.set(EquipmentSlot.HELMET, helmet);
                 equipmentTrait.set(EquipmentSlot.CHESTPLATE, chestplate);
                 equipmentTrait.set(EquipmentSlot.LEGGINGS, leggings);
                 equipmentTrait.set(EquipmentSlot.BOOTS, boots);
+                equipmentTrait.set(EquipmentSlot.HAND, mainHandItem);
+                equipmentTrait.set(EquipmentSlot.OFF_HAND, offHandItem);
+
 
                 l.add(e);
                 e.spawn(clone_loc);
