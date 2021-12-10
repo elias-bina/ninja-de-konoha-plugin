@@ -1,6 +1,7 @@
 package org.ensimag.konohaninja.jutsu;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -18,6 +19,8 @@ import net.citizensnpcs.api.npc.NPC;
 
 
 public class MulticloneListener implements Listener{
+
+    private static final long CLONE_DISAPPEARING_TICKS = 10;
 
     private static MulticloneListener instance;
     private final MulticloneCommand commandInstance;
@@ -51,12 +54,7 @@ public class MulticloneListener implements Listener{
             for(NPC npc : l){
                 MetadataStore d = npc.data();
                 if((long)d.get("DeathDate") < p.getWorld().getGameTime()){
-                    if(npc.isSpawned()){
-                        npc.despawn();  
-                    }else {   
-                        l.remove(npc);
-                        CitizensAPI.getNPCRegistry().deregister(npc);
-                    }                
+                    killNPC(npc, l);       
                     continue;
                 }
                 displacement.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
@@ -74,7 +72,24 @@ public class MulticloneListener implements Listener{
         Entity e = event.getEntity();
         if(e.hasMetadata("NPC")){
             Bukkit.getLogger().info("NPC " + e.getName() + " has been hit");
+            NPC npc = CitizensAPI.getNPCRegistry().getNPC(e);
+            if(npc != null){
+                List<NPC> l = commandInstance.getPlayerCloneList(e.getName());
+                killNPC(npc, l);
+            }
         }
+    }
+
+
+    private void killNPC(NPC npc, List<NPC> l){
+        MetadataStore d = npc.data();
+        if(npc.isSpawned()){
+            d.set("DeathDate", npc.getEntity().getWorld().getGameTime() + CLONE_DISAPPEARING_TICKS);
+            npc.despawn();  
+        }else {
+            l.remove(npc);
+            CitizensAPI.getNPCRegistry().deregister(npc);
+        }         
     }
 
 }

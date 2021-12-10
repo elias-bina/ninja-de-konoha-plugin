@@ -14,12 +14,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.MetadataStore;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.trait.Equipment;
+import net.citizensnpcs.api.trait.trait.Equipment.EquipmentSlot;
 
 public class MulticloneCommand implements CommandExecutor {
 
@@ -70,40 +73,59 @@ public class MulticloneCommand implements CommandExecutor {
 
             List<NPC> l = clonesPerPlayer.get(player.getDisplayName());
 
+            // Sets the center of the clones circle
             Vector direction = player.getLocation().getDirection();
             direction.setY(0);
             direction.normalize();
             direction.multiply(MULTICLONE_RANGE);
-
             Location center = player.getLocation().add(direction);
+            
+            // Sets the direction to be on the player
             direction.multiply(-1);
             direction.normalize();
             center.setDirection(direction);
-            
             direction.multiply(MULTICLONE_RANGE);
 
             
 
             for(int i = 0; i < CLONE_NUMBER;i++){
+
+                // Rotates the clones direction to make a circle
                 direction.rotateAroundY(2*Math.PI / (CLONE_NUMBER + 1));
 
+                // Places the clone
                 Location clone_loc = center.add(direction);
                 
+                // Change where the clone is looking, in order to make him look in the center of the circle
                 direction.multiply(-1);
                 clone_loc.setDirection(direction);
                 direction.multiply(-1);
 
+
+                // Creates the NPC instance that will be the clone
                 NPC e = cachedPlayerClone.get(player.getDisplayName()).copy();
                 MetadataStore d = e.data();
                 d.set("DeathDate", clone_loc.getWorld().getGameTime() + CLONE_LIFETIME);
+                
+                // Copies the player equipement
+                ItemStack helmet = player.getEquipment().getHelmet();
+                ItemStack chestplate = player.getEquipment().getChestplate();
+                ItemStack leggings = player.getEquipment().getLeggings();
+                ItemStack boots = player.getEquipment().getBoots();
+                Equipment equipmentTrait = new Equipment();
+                equipmentTrait.set(EquipmentSlot.HELMET, helmet);
+                equipmentTrait.set(EquipmentSlot.CHESTPLATE, chestplate);
+                equipmentTrait.set(EquipmentSlot.LEGGINGS, leggings);
+                equipmentTrait.set(EquipmentSlot.BOOTS, boots);
+                e.addTrait(equipmentTrait);
+
                 l.add(e);
                 e.spawn(clone_loc);
                 
+                // Resets the center position (YES, the add function is in place AND returns its result)
                 direction.multiply(-1);
                 center.add(direction);
                 direction.multiply(-1);
-
-                center.getWorld().spawnFallingBlock(center, Bukkit.createBlockData(Material.ACACIA_PLANKS));
             }
 
         }
