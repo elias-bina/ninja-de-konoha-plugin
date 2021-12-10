@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
@@ -66,6 +67,14 @@ public class MulticloneListener implements Listener{
             }
         }
         // Avant :  event.getFrom() Après :  event.getTo() Les 2 c'est des loc
+    }
+
+    @EventHandler
+    public void onCloneHit(EntityDamageByEntityEvent event){
+        Entity e = event.getEntity();
+        if(e.hasMetadata("NPC")){
+            Bukkit.getLogger().info("NPC " + e.getName() + " has been hit");
+        }
     }
 
 }
