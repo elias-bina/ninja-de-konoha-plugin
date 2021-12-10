@@ -16,6 +16,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -81,6 +83,7 @@ public class SubstituteListener implements Listener{
                     loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
                     loc = loc.add(0.0, 1.0, 0.0);
                     loc.getWorld().spawnFallingBlock(loc, Bukkit.createBlockData(entity_material));
+                    loc.getWorld().playSound(loc, Sound.ENTITY_GHAST_SHOOT, SoundCategory.PLAYERS, 1.0f, 0.0f);
 
                     loc.add(diff);            
                     player.teleport(loc);
