@@ -108,16 +108,17 @@ public class MulticloneCommand implements CommandExecutor {
                 d.set("DeathDate", clone_loc.getWorld().getGameTime() + CLONE_LIFETIME);
                 
                 // Copies the player equipement
+                Equipment equipmentTrait = new Equipment();
+                e.addTrait(equipmentTrait);
+
                 ItemStack helmet = player.getEquipment().getHelmet();
                 ItemStack chestplate = player.getEquipment().getChestplate();
                 ItemStack leggings = player.getEquipment().getLeggings();
                 ItemStack boots = player.getEquipment().getBoots();
-                Equipment equipmentTrait = new Equipment();
                 equipmentTrait.set(EquipmentSlot.HELMET, helmet);
                 equipmentTrait.set(EquipmentSlot.CHESTPLATE, chestplate);
                 equipmentTrait.set(EquipmentSlot.LEGGINGS, leggings);
                 equipmentTrait.set(EquipmentSlot.BOOTS, boots);
-                e.addTrait(equipmentTrait);
 
                 l.add(e);
                 e.spawn(clone_loc);
