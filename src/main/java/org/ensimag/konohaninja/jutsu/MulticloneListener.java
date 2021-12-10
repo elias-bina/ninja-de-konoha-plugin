@@ -77,7 +77,6 @@ public class MulticloneListener implements Listener{
     public void onCloneHit(EntityDamageByEntityEvent event){
         Entity e = event.getEntity();
         if(e.hasMetadata("NPC")){
-            Bukkit.getLogger().info("NPC " + e.getName() + " has been hit");
             NPC npc = CitizensAPI.getNPCRegistry().getNPC(e);
             if(npc != null){
                 List<NPC> l = commandInstance.getPlayerCloneList(e.getName());
@@ -92,7 +91,7 @@ public class MulticloneListener implements Listener{
         if(npc.isSpawned()){
             Entity e = npc.getEntity();
             e.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, e.getLocation().add(0.0, 1.0, 0.0), 5);
-            e.getWorld().playSound(e.getLocation(), Sound.ENTITY_CREEPER_DEATH, SoundCategory.PLAYERS, 1.0f, 0.0f);
+            e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1.0f, 0.0f);
 
             d.set("DeathDate", npc.getEntity().getWorld().getGameTime() + CLONE_DISAPPEARING_TICKS);
             npc.despawn();  

@@ -10,6 +10,8 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -122,6 +124,8 @@ public class MulticloneCommand implements CommandExecutor {
 
                 l.add(e);
                 e.spawn(clone_loc);
+                
+                player.getWorld().playSound(clone_loc, Sound.ENTITY_ILLUSIONER_CAST_SPELL, SoundCategory.PLAYERS, 1.0f, 0.0f);
                 
                 // Resets the center position (YES, the add function is in place AND returns its result)
                 direction.multiply(-1);
