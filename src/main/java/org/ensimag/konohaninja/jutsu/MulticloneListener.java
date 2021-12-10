@@ -57,11 +57,13 @@ public class MulticloneListener implements Listener{
                     killNPC(npc, l);       
                     continue;
                 }
-                displacement.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
-                look.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
-                Entity npcEntity = npc.getEntity();
-                npcEntity.teleport(npcEntity.getLocation().setDirection(look));
-                npcEntity.setVelocity(displacement);
+                if(npc.isSpawned()){
+                    displacement.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
+                    look.rotateAroundY(2*Math.PI / (MulticloneCommand.CLONE_NUMBER + 1));
+                    Entity npcEntity = npc.getEntity();
+                    npcEntity.teleport(npcEntity.getLocation().setDirection(look));
+                    npcEntity.setVelocity(displacement);
+                }
             }
         }
         // Avant :  event.getFrom() Après :  event.getTo() Les 2 c'est des loc
