@@ -107,8 +107,7 @@ public class MulticloneListener implements Listener{
                 if(npc.isSpawned()){
                     Equipment e = npc.getTraitNullable(Equipment.class);
                     if(e != null){
-                        e.set(EquipmentSlot.HAND, p.getEquipment().getItemInMainHand());
-                        e.set(EquipmentSlot.OFF_HAND, p.getEquipment().getItemInOffHand());
+                        e.set(EquipmentSlot.HAND, p.getInventory().getItem(event.getNewSlot()));
                     }
                 }
             }
